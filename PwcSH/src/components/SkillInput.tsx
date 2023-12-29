@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Skill } from '../models/developer'
 
 interface Props {
@@ -7,18 +7,23 @@ interface Props {
     i: number;  
 }
 
-const Skill = ({setSkillArray, skillArray, i}:Props) => {
+const SkillInput = ({setSkillArray, skillArray, i}:Props) => {
 
-  const [nameInput, setNameInput] = useState<string>('');
-  const [levelSelect, setLevelSelect] = useState<number>(0);
+  const [nameInput, setNameInput] = useState<string>(skillArray[i]?.name || '');
+  const [levelSelect, setLevelSelect] = useState<number>(skillArray[i]?.level || 0);
+
+  const [confirmed, setConfirmed] = useState<boolean>(false);
 
   const handleSetSkill = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const newSkill: Skill = {name: nameInput, level: levelSelect};
     setSkillArray([...skillArray, newSkill]);
-    setNameInput('');
-    setLevelSelect(0);
+    setConfirmed(true);
   }
+
+  useEffect(() => {
+    console.log('Nuovo stato:', skillArray);
+  }, [skillArray]);
 
   return (
     <label>
@@ -30,9 +35,9 @@ const Skill = ({setSkillArray, skillArray, i}:Props) => {
                 <option value="2">Già usato per progetti personali</option>
                 <option value="3">Già usato a livello lavorativo</option>
             </select>
-            <button onClick={e => handleSetSkill(e)}>Aggiungi</button>
+            {!confirmed && <button onClick={e => handleSetSkill(e)}>Conferma</button>}
     </label>
   )
 }
 
-export default Skill
+export default SkillInput

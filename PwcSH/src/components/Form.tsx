@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Developer } from '../models/developer'
+import { Developer, Skill } from '../models/developer'
 import './Form.css'
-import Skill from './Skill';
+import SkillInput from './SkillInput';
 
 interface Props {
     goToConfirmation: (developer:Developer) => void;
@@ -28,6 +28,7 @@ const Form = ({goToConfirmation}:Props) => {
 
     const handleRemoveSkill = () => {
         setNumSkills(prevNumSkills => prevNumSkills - 1);
+        setSkillArray(prevSkillArray => prevSkillArray.slice(0, -1));
     }
 
 
@@ -38,7 +39,7 @@ const Form = ({goToConfirmation}:Props) => {
     const skillsComponents = [];
     for (let i = 0; i < numSkills; i++) {
         skillsComponents.push(
-            <Skill key={i} setSkillArray={setSkillArray} skillArray={skillArray} i={i}/>
+            <SkillInput key={i} setSkillArray={setSkillArray} skillArray={skillArray} i={i}/>
         );
     }
 
