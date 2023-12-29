@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Developer, Skill } from '../models/developer'
 import './styles/Form.css'
 import SkillInput from './SkillInput';
@@ -14,10 +14,15 @@ const Form = ({goToConfirmation, developer, setDeveloper}:Props) => {
     const [skillArray, setSkillArray] = useState<Skill[]>(developer.skill);
     const [numSkills, setNumSkills] = useState<number>(1);
 
-    const handleAddSkill = () => {
-        setNumSkills(prevNumSkills => prevNumSkills + 1);
+    const handleAddSkill = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        setNumSkills(numSkills + 1);
     };
 
+    useEffect(() => {
+        console.log(skillArray);
+    }
+    , [skillArray]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, key: string) => {
         setDeveloper({...developer, [key]: e.target.value});
@@ -68,7 +73,7 @@ const Form = ({goToConfirmation, developer, setDeveloper}:Props) => {
         </label>
         <legend>Competenze
         {skillsComponents}
-        <button className='add-butt' onClick={handleAddSkill}>Aggiungi Skill</button>
+        <button className='add-butt' onClick={e => handleAddSkill(e)}>Aggiungi Skill</button>
         </legend>
 
         <button className='submit-butt' type='submit'>Submit</button>
@@ -78,3 +83,4 @@ const Form = ({goToConfirmation, developer, setDeveloper}:Props) => {
 }
 
 export default Form
+
