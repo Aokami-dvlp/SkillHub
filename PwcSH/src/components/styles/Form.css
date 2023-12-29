@@ -8,15 +8,14 @@ input, select{
     height: 30px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    padding: 5px;
   }
 
-  button{
+  .add-butt, .submit-butt{
     display: block;
     width: 300px;
-    height: 60px;
+    height: 40px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    padding: 5px;
+    padding: 3px;
     margin: 0px 20px 20px 20px;
   }

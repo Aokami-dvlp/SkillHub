@@ -1,10 +1,17 @@
-import React from 'react'
+import {useState} from 'react'
 import Form from '../components/Form'
 import { Developer } from '../models/developer';
 
 const InsertDev = () => {
-    const [submitting, setSubmitting] = React.useState(false);
-    const [toInsert, setToInsert] = React.useState<Developer>();
+    const [submitting, setSubmitting] = useState(false);
+    const [developer, setDeveloper] = useState<Developer>({
+      name: '',
+      surname: '',
+      age: 0,
+      level: '',
+      skill: [],
+      inpwcfrom: ''
+  })
 
     /*const pb = new PocketBase('https://skill-hub.pockethost.io');
 
@@ -12,21 +19,14 @@ const InsertDev = () => {
     const record = await pb.collection('developers').create(developer);
 }; */
     
-    const goToConfirmation = (developer:Developer) => {
-        setSubmitting(true);
-        setToInsert(developer);        
+    const goToConfirmation = () => {
+        setSubmitting(true);    
     }
 
   return (
     <>
-    {!submitting && <Form goToConfirmation={goToConfirmation} />}
-    {submitting && toInsert && <><h1>Conferma inserimento:</h1>
-    <li>{toInsert.name}</li>
-    <li>{toInsert.surname}</li>
-    <li>{toInsert.age}</li>
-    <li>{toInsert.level}</li>
-    <li>{toInsert.inpwcfrom}</li>
-    </>}
+    {!submitting && <Form goToConfirmation={goToConfirmation} developer={developer} setDeveloper={setDeveloper} />}
+    {submitting && <h1>Conferma inserimento</h1>}
     </>
   )
 }

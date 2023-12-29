@@ -1,47 +1,40 @@
 import React, { useState } from 'react'
 import { Developer, Skill } from '../models/developer'
-import './Form.css'
+import './styles/Form.css'
 import SkillInput from './SkillInput';
 
 interface Props {
     goToConfirmation: (developer:Developer) => void;
+    developer: Developer;
+    setDeveloper: (developer:Developer) => void;
 }
 
-const Form = ({goToConfirmation}:Props) => {
+const Form = ({goToConfirmation, developer, setDeveloper}:Props) => {
 
-    const [developer, setDeveloper] = useState<Developer>({
-        name: '',
-        surname: '',
-        age: 0,
-        level: '',
-        skill: [],
-        inpwcfrom: ''
-    })
-
-    const [skillArray, setSkillArray] = useState<Skill[]>([]);
-
+    const [skillArray, setSkillArray] = useState<Skill[]>(developer.skill);
     const [numSkills, setNumSkills] = useState<number>(1);
 
     const handleAddSkill = () => {
         setNumSkills(prevNumSkills => prevNumSkills + 1);
     };
 
-    const handleRemoveSkill = () => {
-        setNumSkills(prevNumSkills => prevNumSkills - 1);
-        setSkillArray(prevSkillArray => prevSkillArray.slice(0, -1));
-    }
-
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, key: string) => {
         setDeveloper({...developer, [key]: e.target.value});
     };
 
-    const skillsComponents = [];
+    const skillsComponents:React.JSX.Element[] = [];
+
+    const handleRemoveSkillInput = (i:number) => {
+        document.getElementById(`${i}`)?.remove();
+        };
+
     for (let i = 0; i < numSkills; i++) {
         skillsComponents.push(
-            <SkillInput key={i} setSkillArray={setSkillArray} skillArray={skillArray} i={i}/>
+            <SkillInput key={i} setSkillArray={setSkillArray} skillArray={skillArray} handleRemoveSkillInput={handleRemoveSkillInput} i={i}/>
         );
     }
+
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -73,11 +66,12 @@ const Form = ({goToConfirmation}:Props) => {
             In PWC da:
             <input type="text" placeholder='mm/aaaa' value={developer.inpwcfrom} onChange={(e) => handleChange(e, 'inpwcfrom')} />
         </label>
+        <legend>Competenze
         {skillsComponents}
-        {numSkills < 5 && <button type="button" onClick={handleAddSkill}>Add Skill</button>}
-        {numSkills > 1 && <button type="button" onClick={handleRemoveSkill}>Remove Skill</button>}
+        <button className='add-butt' onClick={handleAddSkill}>Aggiungi Skill</button>
+        </legend>
 
-        <button type='submit'>Submit</button>
+        <button className='submit-butt' type='submit'>Submit</button>
     </form>
     </>
     )
