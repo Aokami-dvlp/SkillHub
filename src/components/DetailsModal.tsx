@@ -43,7 +43,7 @@ const DetailsModal = ({openModal, setOpen, developer}:Props) => {
             Qualifica: {developer?.level} <br/>
             Email: {developer?.email} <br/>
             In PWC da: {developer?.inpwcfrom} <br/>
-            Competenze: {developer?.skill.map((skill, i) => <li key={i}>{skill}</li>)}
+            Competenze: {developer?.skill.map((sskill, i) => <li key={i}>{sskill}</li>)}
 
           </Typography>
         </Box>
