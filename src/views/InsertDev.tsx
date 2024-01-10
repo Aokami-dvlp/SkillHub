@@ -27,7 +27,7 @@ const InsertDev = () => {
     const thanksConfirmation = () => {
       const pb = new PocketBase('https://skill-hub.pockethost.io');
       const createRecord = async () => {
-      await pb.collection('developers').create(developer).then((res) => console.log(res));
+      await pb.collection('developers').create(developer);
       };
       createRecord();
       setConfirmed(true);

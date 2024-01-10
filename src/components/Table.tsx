@@ -4,11 +4,12 @@ import { DataGrid, GridEventListener, GridToolbar, itIT } from '@mui/x-data-grid
 import { Developer } from '../models/developer';
 import { datamapper } from '../modules/datamapper';
 import { COLUMNS } from '../modules/COLUMNS';
+import { DevDetails } from '../models/devDetails';
 
 interface Props {
   developers: Developer[];
   setOpenModal: (open: boolean) => void;
-  setSelectedDeveloper: (developer: Developer) => void;
+  setSelectedDeveloper: (developer: DevDetails) => void;
 }
 
 const Table = ({ developers, setOpenModal, setSelectedDeveloper }: Props) => {
@@ -17,8 +18,7 @@ const Table = ({ developers, setOpenModal, setSelectedDeveloper }: Props) => {
   
   const handleClickRow: GridEventListener<'rowClick'> = (params) => {
     setOpenModal(true);
-    console.log(params.row);
-    setSelectedDeveloper(params.row as Developer);
+    setSelectedDeveloper(params.row as DevDetails);
   }
 
   return (

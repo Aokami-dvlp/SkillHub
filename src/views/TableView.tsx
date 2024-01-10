@@ -4,12 +4,13 @@ import { Developer } from '../models/developer'
 import PocketBase from 'pocketbase'
 import './styles/TableView.css'
 import DetailsModal from '../components/DetailsModal'
+import { DevDetails } from '../models/devDetails'
 
 const TableView = () => {
 
   const [developers, setDevelopers] = useState<Developer[]>([])
   const [openModal, setOpenModal] = useState<boolean>(false)
-  const [selectedDeveloper, setSelectedDeveloper] = useState<Developer | null>(null)
+  const [selectedDeveloper, setSelectedDeveloper] = useState<DevDetails | null>(null)
   
   useEffect(() => {
     const pb = new PocketBase('https://skill-hub.pockethost.io');

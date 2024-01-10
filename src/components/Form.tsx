@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Developer, Skill } from '../models/developer'
 import './styles/Form.css'
 import SkillInput from './SkillInput';
@@ -19,11 +19,6 @@ const Form = ({goToConfirmation, developer, setDeveloper}:Props) => {
         e.preventDefault();
         setNumSkills(numSkills + 1);
     };
-
-    useEffect(() => {
-        console.log(skillArray);
-    }
-    , [skillArray]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, key: string) => {
         setDeveloper({...developer, [key]: e.target.value});

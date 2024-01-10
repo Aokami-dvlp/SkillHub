@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import Typography from '@mui/material/Typography'
-import { Developer } from '../models/developer';
+import { DevDetails } from '../models/devDetails'
 
 const style = {
     position: 'absolute',
@@ -19,7 +19,7 @@ const style = {
 interface Props {
     openModal: boolean;
     setOpen: (open: boolean) => void;
-    developer: Developer | null;
+    developer: DevDetails | null;
     
 }
 
@@ -43,7 +43,7 @@ const DetailsModal = ({openModal, setOpen, developer}:Props) => {
             Qualifica: {developer?.level} <br/>
             Email: {developer?.email} <br/>
             In PWC da: {developer?.inpwcfrom} <br/>
-            Competenze: {JSON.stringify(developer?.skill)}
+            Competenze: {developer?.skill.map((skill, i) => <li key={i}>{skill}</li>)}
 
           </Typography>
         </Box>
