@@ -13,12 +13,12 @@ function App() {
     <>
     <Router>
       <Routes>
-        <Route path="/" Component={InsertDev} />
-        <Route path="/table" Component={TableView} />
-        <Route path='/dashboard' Component={Dashboard}/>
+        <Route path="/" element={<InsertDev/>} />
+        <Route path="/table" element={<TableView/>} />
+        <Route path='/dashboard' element={<Dashboard/>}/>
       </Routes>
+      <Navbar/>
     </Router>
-    <Navbar/>
     </>
   )
 }
